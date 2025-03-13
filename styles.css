@@ -1,40 +1,116 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("passphrase-form");
+/* Reset some default styles */
+body, h2, p, button, textarea {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent default form submission
+/* Main container */
+.container {
+    width: 90%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    background-color: #ffffff;
+}
 
-        const passphraseInput = document.getElementById("passphrase");
-        const passphrase = passphraseInput.value.trim();
+/* Title */
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
 
-        if (passphrase === "") {
-            alert("Please enter a passphrase.");
-            return;
-        }
+/* Input field */
+textarea {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    resize: none;
+}
 
-        // Prepare data for Shortcuts app compatibility
-        const jsonData = JSON.stringify({ passphrase: passphrase });
+/* Unlock buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
 
-        // Save passphrase to a file (Shortcuts should have permission to access it)
-        fetch("save_passphrase.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: jsonData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Notify the Shortcuts app
-                window.location.href = "shortcuts://x-callback-url/finish?result=success";
-            } else {
-                alert("Failed to save passphrase. Please try again.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred. Please try again.");
-        });
-    });
-});
+/* Primary unlock button */
+.unlock-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.unlock-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Disabled biometric button */
+.biometric-btn {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Info text */
+.info-text {
+    font-size: 14px;
+    color: #666;
+    margin-top: 15px;
+}
+
+/* Lost passphrase section */
+.lost-passphrase {
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.lost-passphrase a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.lost-passphrase a:hover {
+    text-decoration: underline;
+}
+
+/* Popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup-content button {
+    background-color: #28a745;
+    color: white;
+}
+
+.popup-content button:hover {
+    background-color: #218838;
+}
